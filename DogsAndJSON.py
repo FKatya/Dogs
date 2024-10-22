@@ -1,7 +1,6 @@
-'''
-Получаем изображение собачек с сайта https://dog.ceo,
-исользуя API и изучаем формат JSON
-'''
+# Получаем изображение собачек с сайта https://dog.ceo,
+# исользуя API и изучаем формат JSON
+
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox as mb
@@ -29,18 +28,20 @@ def show_image():
             mb.showerror('Ошибка',f' Не удалось получить изображение: {e}')
 
 
-# def get_image():
-#     try:
-#         response = requests.get('https://dog.ceo/api/breeds/image/random')
-#         # print(response)
-#         data = response.json()
-#         # print(type(data))
-#         # print(data)
-#         return data['message']
-#     except Exception as e:
-#         tkinter.messagebox.showerror('Error',f'Ошибка при обращении к API: {e}')
-#
-#
+def get_image():
+    try:
+        # response вернет в формате json
+        response = requests.get('https://dog.ceo/api/breeds/image/random')
+        # print(response)
+        data = response.json()
+        # print(type(data))
+        # print(data)
+        return data['message']
+    except Exception as e:
+        mb.showerror('Ошибка',f'Ошибка при обращении к API: {e}')
+        return None
+
+
 window = Tk()
 window.title('Картинки с собачками')
 window.geometry('360x420')

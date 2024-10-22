@@ -39,12 +39,11 @@ def show_image():
 
 def get_dog_image():
     try:
-        # response вернет в формате json
         response = requests.get('https://dog.ceo/api/breeds/image/random')
         # print(response)
         data = response.json()
         # print(type(data))
-        # print(data)
+        print(data)
         return data['message']
     except Exception as e:
         mb.showerror('Ошибка',f'Ошибка при обращении к API: {e}')
@@ -74,11 +73,13 @@ width_label = ttk.Label(text='Ширина: ')
 width_label.pack(side='left',padx=(10,0))
 width_spinbox = ttk.Spinbox(from_=200,to=500,increment=50,width=5)
 width_spinbox.pack(side='left',padx=(0,10))
+width_spinbox.set(300)
 
 height_label = ttk.Label(text='Высота: ')
 height_label.pack(side='left',padx=(10,0))
 height_spinbox = ttk.Spinbox(from_=200,to=500,increment=50,width=5)
 height_spinbox.pack(side='left',padx=(0,10))
+height_spinbox.set(300)
 
 top_level_window = Toplevel(window)
 top_level_window.title('Изображения собачек')

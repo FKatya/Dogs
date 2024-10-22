@@ -26,9 +26,10 @@ def show_image():
             label.image = img
         except Exception as e:
             mb.showerror('Ошибка',f' Не удалось получить изображение: {e}')
+    progress.stop()
 
 
-def get_image():
+def get_dog_image():
     try:
         # response вернет в формате json
         response = requests.get('https://dog.ceo/api/breeds/image/random')
@@ -42,6 +43,12 @@ def get_image():
         return None
 
 
+def prog():
+    progress['value'] = 0
+    progress.start(30)
+    window.after(3000,show_image)
+
+
 window = Tk()
 window.title('Картинки с собачками')
 window.geometry('360x420')
@@ -49,7 +56,10 @@ window.geometry('360x420')
 label = ttk.Label()
 label.pack(pady=5)
 
-button = ttk.Button(text='Загрузить изображение', command=show_image)
+button = ttk.Button(text='Загрузить изображение', command=prog)
 button.pack(pady=5)
+
+progress = ttk.Progressbar(mode='determinate',length=300)
+progress.pack(pady=5)
 
 window.mainloop()

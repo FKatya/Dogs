@@ -8,6 +8,8 @@ from PIL import Image,ImageTk
 import requests
 from io import BytesIO
 
+from PIL.ImageOps import expand
+
 
 def show_image():
     image_url = get_dog_image()
@@ -23,10 +25,12 @@ def show_image():
             img_size = (int(width_spinbox.get()),int(height_spinbox.get()))
             img.thumbnail(img_size)
             img=ImageTk.PhotoImage(img)
-            new_window = Toplevel(window)
-            new_window.title('Случайное изображение')
-            lb = ttk.Label(new_window,image=img)
-            lb.pack()
+            # new_window = Toplevel(window)
+            # new_window.title('Случайное изображение')
+            tab = ttk.Frame(notebook)
+            notebook.add(tab,text=f'Картинка № {notebook.index('end')+1}')
+            lb = ttk.Label(tab,image=img)
+            lb.pack(padx=5,pady=5)
             lb.image = img
         except Exception as e:
             mb.showerror('Ошибка',f' Не удалось получить изображение: {e}')
@@ -76,7 +80,11 @@ height_label.pack(side='left',padx=(10,0))
 height_spinbox = ttk.Spinbox(from_=200,to=500,increment=50,width=5)
 height_spinbox.pack(side='left',padx=(0,10))
 
+top_level_window = Toplevel(window)
+top_level_window.title('Изображения собачек')
 
+notebook = ttk.Notebook(top_level_window)
+notebook.pack(expand=True,fill='both',padx=5,pady=5)
 
 
 window.mainloop()
